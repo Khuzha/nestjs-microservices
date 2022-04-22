@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  users:
+    build: ./users
+    ports:
+      - ${USERS_EXTERNAL_PORT}:${USERS_INTERNAL_PORT}
+    networks:
+      - project
+    env_file:
+      - .env
+
+  docs:
+    build: ./docs
+    ports:
+    - ${DOCS_EXTERNAL_PORT}:${DOCS_INTERNAL_PORT}
+    networks:
+    - project
+    env_file:
+    - .env
+
+networks:
+  project:
+    driver: bridge
