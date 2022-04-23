@@ -3,6 +3,8 @@ version: "3.9"
 services:
   users:
     build: ./users
+    volumes:
+      - ./users:/app
     ports:
       - ${USERS_EXTERNAL_PORT}:${USERS_INTERNAL_PORT}
     networks:
@@ -12,6 +14,8 @@ services:
 
   docs:
     build: ./docs
+    volumes:
+    - ./docs:/app
     ports:
     - ${DOCS_EXTERNAL_PORT}:${DOCS_INTERNAL_PORT}
     networks:
