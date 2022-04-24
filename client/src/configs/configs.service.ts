@@ -12,10 +12,13 @@ export class ConfigsService {
     this.configs.port = process.env.CLIENT_INTERNAL_PORT;
     this.servicesOptions.users = {
       options: {
-        host: process.env.USERS_HOST,
-        port: +process.env.USERS_INTERNAL_PORT,
+        urls: [process.env.USERS_RABBITMQ_URL],
+        queue: process.env.USERS_QUEUE,
+        queueOptions: {
+          durable: false,
+        },
       },
-      transport: Transport.TCP,
+      transport: Transport.RMQ,
     };
   }
 
