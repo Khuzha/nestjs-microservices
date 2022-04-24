@@ -11,3 +11,5 @@ RUN apk add curl net-tools
 COPY . .
 
 CMD ["pnpm", "start:dev"]
+
+EXPOSE 3000

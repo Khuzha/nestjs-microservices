@@ -1,12 +1,21 @@
 version: "3.9"
 
 services:
+  client:
+    build: ./client
+    volumes:
+      - ./client:/app
+    ports:
+      - ${CLIENT_EXTERNAL_PORT}:${CLIENT_INTERNAL_PORT}
+    networks:
+      - project
+    env_file:
+      - .env
+
   users:
     build: ./users
     volumes:
       - ./users:/app
-    ports:
-      - ${USERS_EXTERNAL_PORT}:${USERS_INTERNAL_PORT}
     networks:
       - project
     env_file:
@@ -16,8 +25,6 @@ services:
     build: ./docs
     volumes:
     - ./docs:/app
-    ports:
-    - ${DOCS_EXTERNAL_PORT}:${DOCS_INTERNAL_PORT}
     networks:
     - project
     env_file:
