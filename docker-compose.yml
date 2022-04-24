@@ -1,10 +1,18 @@
 version: "3.9"
 
 services:
+  rabbitmq-users:
+    image: rabbitmq:3.10-rc-alpine
+    networks:
+    - project
+
   client:
     build: ./client
     volumes:
       - ./client:/app
+    depends_on:
+      - users
+      - docs
     ports:
       - ${CLIENT_EXTERNAL_PORT}:${CLIENT_INTERNAL_PORT}
     networks:
@@ -16,6 +24,8 @@ services:
     build: ./users
     volumes:
       - ./users:/app
+    depends_on:
+      - rabbitmq-users
     networks:
       - project
     env_file:
